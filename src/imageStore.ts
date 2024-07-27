@@ -25,6 +25,11 @@ export default class ImageStore {
         "AWS S3"
     )
 
+    static readonly WEIXIN_MP = new ImageStore(
+        "WEIXIN_MP",
+        "WEIXIN_MP"
+    )
+
     private constructor(readonly id: string, readonly description: string) {
         ImageStore.values.push(this)
     }
