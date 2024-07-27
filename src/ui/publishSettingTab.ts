@@ -123,16 +123,16 @@ export default class PublishSettingTab extends PluginSettingTab {
             .addText(text =>
                 text
                     .setPlaceholder("Enter AppID")
-                    .setValue(this.plugin.settings.ossSetting.accessKeyId)
-                    .onChange(value => this.plugin.settings.ossSetting.accessKeyId = value))
+                    .setValue(this.plugin.settings.weixinMpSetting.appId)
+                    .onChange(value => this.plugin.settings.weixinMpSetting.appId = value))
         new Setting(parentEL)
             .setName("AppSecret")
             .setDesc("The AppSecret of WinXin MP")
             .addText(text =>
                 text
                     .setPlaceholder("Enter AppSecret")
-                    .setValue(this.plugin.settings.ossSetting.accessKeySecret)
-                    .onChange(value => this.plugin.settings.ossSetting.accessKeySecret = value))
+                    .setValue(this.plugin.settings.weixinMpSetting.appSecret)
+                    .onChange(value => this.plugin.settings.weixinMpSetting.appSecret = value))
       }
 
     // Imgur Setting
