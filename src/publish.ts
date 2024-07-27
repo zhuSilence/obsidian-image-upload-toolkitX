@@ -13,6 +13,7 @@ import PublishSettingTab from "./ui/publishSettingTab";
 import {OssSetting} from "./uploader/oss/ossUploader";
 import {ImagekitSetting} from "./uploader/imagekit/imagekitUploader";
 import {AwsS3Setting} from "./uploader/s3/awsS3Uploader";
+import {WeiXinMpSetting} from "./uploader/weixin/weixinMpUploader";
 
 export interface PublishSettings {
     imageAltText: boolean;
@@ -25,6 +26,7 @@ export interface PublishSettings {
     ossSetting: OssSetting;
     imagekitSetting: ImagekitSetting;
     awsS3Setting: AwsS3Setting;
+    weixinMpSetting: WeiXinMpSetting;
 }
 
 const DEFAULT_SETTINGS: PublishSettings = {
@@ -57,6 +59,10 @@ const DEFAULT_SETTINGS: PublishSettings = {
         bucketName: "",
         path: "",
         customDomainName: "",
+    },
+    weixinMpSetting: {
+        appId: "",
+        appSecret: ""
     }
 };
 export default class ObsidianPublish extends Plugin {

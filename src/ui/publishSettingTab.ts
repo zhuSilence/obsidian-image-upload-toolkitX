@@ -105,12 +105,35 @@ export default class PublishSettingTab extends PluginSettingTab {
             case ImageStore.AWS_S3.id:
                 this.drawAwsS3Setting(partentEL);
                 break;
+            case ImageStore.WEIXIN_MP.id:
+                this.drawWexinMpSetting(partentEL);
+                break;
             default:
                 throw new Error(
                     "Should not reach here!"
                 )
         }
     }
+
+    private drawWexinMpSetting(parentEL: HTMLElement): void {
+        // 方法的具体实现
+        new Setting(parentEL)
+            .setName("AppID")
+            .setDesc("AppID of WinXin MP")
+            .addText(text =>
+                text
+                    .setPlaceholder("Enter AppID")
+                    .setValue(this.plugin.settings.ossSetting.accessKeyId)
+                    .onChange(value => this.plugin.settings.ossSetting.accessKeyId = value))
+        new Setting(parentEL)
+            .setName("AppSecret")
+            .setDesc("The AppSecret of WinXin MP")
+            .addText(text =>
+                text
+                    .setPlaceholder("Enter AppSecret")
+                    .setValue(this.plugin.settings.ossSetting.accessKeySecret)
+                    .onChange(value => this.plugin.settings.ossSetting.accessKeySecret = value))
+      }
 
     // Imgur Setting
     private drawImgurSetting(partentEL: HTMLDivElement) {
