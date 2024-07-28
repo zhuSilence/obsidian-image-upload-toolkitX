@@ -1,10 +1,11 @@
-import {PublishSettings} from "../publish";
+import { PublishSettings } from "../publish";
 import ImageUploader from "./imageUploader";
 import ImageStore from "../imageStore";
 import ImgurAnonymousUploader from "./imgur/imgurAnonymousUploader";
 import OssUploader from "./oss/ossUploader";
 import ImagekitUploader from "./imagekit/imagekitUploader";
 import AwsS3Uploader from "./s3/awsS3Uploader";
+import WeiXinMpUploader from "./weixin/weixinMpUploader";
 
 export default function buildUploader(settings: PublishSettings): ImageUploader {
     switch (settings.imageStore) {
@@ -16,6 +17,8 @@ export default function buildUploader(settings: PublishSettings): ImageUploader 
             return new ImagekitUploader(settings.imagekitSetting);
         case ImageStore.AWS_S3.id:
             return new AwsS3Uploader(settings.awsS3Setting);
+        case ImageStore.WEIXIN_MP.id:
+            return new WeiXinMpUploader(settings.weixinMpSetting);
         //todo more cases
         default:
             throw new Error('should not reach here!')
