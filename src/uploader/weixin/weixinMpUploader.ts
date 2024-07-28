@@ -11,13 +11,12 @@ export default class WeiXinMpUploader implements ImageUploader {
 
     async upload(image: File, fullPath: string): Promise<string> {
         // 上传图片
-        const formData = {
-            type: "image",
-            media: image.arrayBuffer()
-        };
+        const formData = new FormData();
+        formData.append('type', "image");
+        formData.append('media', image);
+
         const resp = await requestUrl({
-            body: formData,
-            //await image.arrayBuffer(),
+            data: formData,
             headers: { "Content-Type": "multipart/form-data" },
             method: "POST",
             url: this.uploadUrl
