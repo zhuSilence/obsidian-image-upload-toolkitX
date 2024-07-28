@@ -13,7 +13,7 @@ export default class WeiXinMpUploader implements ImageUploader {
         // 上传图片
         const formData = {
             type: "image",
-            media: image
+            media: image.arrayBuffer()
         };
         const resp = await requestUrl({
             body: formData,
