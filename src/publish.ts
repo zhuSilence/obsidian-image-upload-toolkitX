@@ -61,8 +61,7 @@ const DEFAULT_SETTINGS: PublishSettings = {
         customDomainName: "",
     },
     weixinMpSetting: {
-        appId: "",
-        appSecret: ""
+        uploadUrl: ""
     }
 };
 export default class ObsidianPublish extends Plugin {

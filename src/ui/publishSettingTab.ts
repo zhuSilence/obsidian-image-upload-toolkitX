@@ -118,21 +118,13 @@ export default class PublishSettingTab extends PluginSettingTab {
     private drawWexinMpSetting(parentEL: HTMLElement): void {
         // 方法的具体实现
         new Setting(parentEL)
-            .setName("AppID")
-            .setDesc("AppID of WinXin MP")
+            .setName("Upload Url")
+            .setDesc("Upload Url of WinXin MP")
             .addText(text =>
                 text
-                    .setPlaceholder("Enter AppID")
-                    .setValue(this.plugin.settings.weixinMpSetting.appId)
-                    .onChange(value => this.plugin.settings.weixinMpSetting.appId = value))
-        new Setting(parentEL)
-            .setName("AppSecret")
-            .setDesc("The AppSecret of WinXin MP")
-            .addText(text =>
-                text
-                    .setPlaceholder("Enter AppSecret")
-                    .setValue(this.plugin.settings.weixinMpSetting.appSecret)
-                    .onChange(value => this.plugin.settings.weixinMpSetting.appSecret = value))
+                    .setPlaceholder("Enter Upload Url")
+                    .setValue(this.plugin.settings.weixinMpSetting.uploadUrl)
+                    .onChange(value => this.plugin.settings.weixinMpSetting.uploadUrl = value))
       }
 
     // Imgur Setting
