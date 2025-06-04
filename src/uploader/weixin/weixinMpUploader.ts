@@ -49,7 +49,7 @@ export default class WeiXinMpUploader implements ImageUploader {
             method: "POST",
             url: this.uploadUrl
         });
-        // console.log(resp)
+        console.log(resp)
         if ((await resp).status != 200) {
             await handleImgurErrorResponse(resp);
         }

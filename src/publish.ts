@@ -21,6 +21,9 @@ export interface PublishSettings {
     ignoreProperties: boolean;
     attachmentLocation: string;
     imageStore: string;
+    useRelativePath: boolean;
+    relativePathTemplate: string;
+    assetDirName: string;
     //Imgur Anonymous setting
     imgurAnonymousSetting: ImgurAnonymousSetting;
     ossSetting: OssSetting;
@@ -35,6 +38,9 @@ const DEFAULT_SETTINGS: PublishSettings = {
     ignoreProperties: true,
     attachmentLocation: ".",
     imageStore: ImageStore.IMGUR.id,
+    useRelativePath: false,
+    relativePathTemplate: "{currentDir}/{assetDir}/{fileBaseName}/{imageName}",
+    assetDirName: "asset",
     imgurAnonymousSetting: {clientId: IMGUR_PLUGIN_CLIENT_ID},
     ossSetting: {
         region: "oss-cn-hangzhou",

@@ -30,12 +30,41 @@ export default class PublishSettingTab extends PluginSettingTab {
                     .setValue(this.plugin.settings.attachmentLocation)
                     .onChange(async (value) => {
                         if ((await this.app.vault.getAbstractFileByPath(value)) == null) {
-                            new Notice(`Attachment location "${value}" not exist!`)
+                            new Notice(`Attachment location \"${value}\" not exist!`)
                             return
                         }
                         this.plugin.settings.attachmentLocation = value;
 
                     })
+            );
+
+        new Setting(imageStoreTypeDiv)
+            .setName("使用相对路径")
+            .setDesc("开启后，图片路径将以当前文档所在目录为基准进行查找和上传。")
+            .addToggle(toggle =>
+                toggle
+                    .setValue(this.plugin.settings.useRelativePath)
+                    .onChange(value => this.plugin.settings.useRelativePath = value)
+            );
+
+        new Setting(imageStoreTypeDiv)
+            .setName("资源目录名（asset 目录）")
+            .setDesc("自定义资源文件夹名称，默认为 asset")
+            .addText(text =>
+                text
+                    .setPlaceholder("asset")
+                    .setValue(this.plugin.settings.assetDirName)
+                    .onChange(value => this.plugin.settings.assetDirName = value)
+            );
+
+        new Setting(imageStoreTypeDiv)
+            .setName("相对路径模板")
+            .setDesc("可用变量：{currentDir}、{assetDir}、{fileBaseName}、{fileName}、{imageName}")
+            .addText(text =>
+                text
+                    .setPlaceholder("{currentDir}/{assetDir}/{fileBaseName}/{imageName}")
+                    .setValue(this.plugin.settings.relativePathTemplate)
+                    .onChange(value => this.plugin.settings.relativePathTemplate = value)
             );
 
         new Setting(imageStoreTypeDiv)

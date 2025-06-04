@@ -79,15 +79,41 @@ export default class ImageTagProcessor {
         const images: Image[] = [];
         const wikiMatches = value.matchAll(WIKI_REGEX);
         const mdMatches = value.matchAll(MD_REGEX);
+        let currentFileDir = '';
+        let currentFileBaseName = '';
+        let currentFileName = '';
+        if (this.settings.useRelativePath) {
+            const activeFile = this.app.workspace.getActiveFile?.();
+            if (activeFile) {
+                currentFileDir = path.dirname(activeFile.path);
+                currentFileBaseName = path.parse(activeFile.path).name;
+                currentFileName = path.basename(activeFile.path);
+            }
+        }
+        const resolveTemplate = (imageName: string) => {
+            let result = this.settings.relativePathTemplate;
+            result = result.replaceAll('{currentDir}', currentFileDir);
+            result = result.replaceAll('{assetDir}', this.settings.assetDirName || 'asset');
+            result = result.replaceAll('{fileBaseName}', currentFileBaseName);
+            result = result.replaceAll('{fileName}', currentFileName);
+            result = result.replaceAll('{imageName}', imageName);
+            return normalizePath(result);
+        };
         for (const match of wikiMatches) {
             const name = match[1]
             var path_name = name
             if (name.endsWith('.excalidraw')) {
                 path_name = name + '.png'
             }
+            let imgPath = '';
+            if (this.settings.useRelativePath && currentFileDir && currentFileBaseName) {
+                imgPath = resolveTemplate(path_name);
+            } else {
+                imgPath = this.settings.attachmentLocation + '/' + path_name;
+            }
             images.push({
                 name: name,
-                path: this.settings.attachmentLocation + '/' + path_name,
+                path: imgPath,
                 source: match[0],
                 url: '',
             })
@@ -97,9 +123,15 @@ export default class ImageTagProcessor {
                 continue
             }
             const decodedPath = decodeURI(match[2]);
+            let imgPath = '';
+            if (this.settings.useRelativePath && currentFileDir && currentFileBaseName) {
+                imgPath = resolveTemplate(decodedPath);
+            } else {
+                imgPath = decodedPath;
+            }
             images.push({
                 name: decodedPath,
-                path: decodedPath,
+                path: imgPath,
                 source: match[0],
                 url: '',
             })
